@@ -53,6 +53,9 @@ jobs:
       - install-dependencies
       - cache-dependencies
       - run: ls -lha
+      - attach_workspace:
+          at: ~/
+      - run: ls -lha
       # - deploy-app
 
 workflows:
