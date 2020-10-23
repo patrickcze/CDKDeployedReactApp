@@ -1,0 +1,13 @@
+version: 2.1
+
+jobs:
+  build:
+    steps:
+      - checkout
+
+workflows:
+  version: 2
+  ci-master:
+    jobs:
+      - build:
+          context: aws-account
