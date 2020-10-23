@@ -11,7 +11,7 @@ executors:
 commands:
   install-dependencies:
     steps:
-      - npm install
+      - run: npm install
   cache-dependencies:
     steps:
       - save_cache:
