@@ -19,6 +19,7 @@ commands:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+            - ./infrastructure/node_modules
   restore-dependencies:
     steps:
       - restore_cache:
@@ -42,7 +43,9 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - build/*
+            - project/build
+      - store_artifacts:
+          path: project/build
   deploy:
     executor: default
     steps:
@@ -57,7 +60,7 @@ workflows:
   ci-master:
     jobs:
       - build
-      - deploy:
-          context: aws-account
-          requires:
-            - build
+      # - deploy:
+      #     context: aws-account
+      #     requires:
+      #       - build
