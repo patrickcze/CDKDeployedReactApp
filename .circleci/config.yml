@@ -46,6 +46,7 @@ jobs:
       - restore-dependencies
       - install-dependencies
       - cache-dependencies
+      - deploy-app
 
 workflows:
   version: 2
