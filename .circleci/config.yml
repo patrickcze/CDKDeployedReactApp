@@ -59,8 +59,16 @@ workflows:
   version: 2
   ci-master:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only:
+                - master
       - deploy:
           context: aws-account
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - master
