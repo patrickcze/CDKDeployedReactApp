@@ -44,7 +44,7 @@ jobs:
           root: ~/
           paths: project/build
   deploy:
-    executor: default
+    executor: aws-cli/default
     steps:
       - checkout
       - restore-dependencies
@@ -52,6 +52,7 @@ jobs:
       - cache-dependencies
       - attach_workspace:
           at: ~/
+      - aws-cli/setup
       - deploy-app
 
 workflows:
