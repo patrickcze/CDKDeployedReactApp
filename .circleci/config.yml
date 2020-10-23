@@ -15,8 +15,7 @@ commands:
   cache-dependencies:
     steps:
       - save_cache:
-          keys:
-            - dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
 
