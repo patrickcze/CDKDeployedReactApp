@@ -1,7 +1,16 @@
 version: 2.1
 
+orbs:
+  aws-s3: circleci/aws-s3@1.0.11
+
+executors:
+  default:
+    docker:
+      - image: circleci/node:current
+
 jobs:
   build:
+    executor: default
     steps:
       - checkout
 
