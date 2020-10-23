@@ -43,8 +43,6 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths: project/build
-      - store_artifacts:
-          path: build
   deploy:
     executor: default
     steps:
@@ -52,11 +50,9 @@ jobs:
       - restore-dependencies
       - install-dependencies
       - cache-dependencies
-      - run: ls -lha
       - attach_workspace:
           at: ~/
-      - run: ls -lha
-      # - deploy-app
+      - deploy-app
 
 workflows:
   version: 2
