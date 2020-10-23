@@ -41,9 +41,8 @@ jobs:
       - cache-dependencies
       - build-app
       - persist_to_workspace:
-          root: .
-          paths:
-            - build
+          root: ~/
+          paths: project/build
       - store_artifacts:
           path: build
   deploy:
@@ -53,14 +52,15 @@ jobs:
       - restore-dependencies
       - install-dependencies
       - cache-dependencies
-      - deploy-app
+      - run: ls -lha
+      # - deploy-app
 
 workflows:
   version: 2
   ci-master:
     jobs:
       - build
-      # - deploy:
-      #     context: aws-account
-      #     requires:
-      #       - build
+      - deploy:
+          context: aws-account
+          requires:
+            - build
