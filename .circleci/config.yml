@@ -8,11 +8,25 @@ executors:
     docker:
       - image: circleci/node:current
 
+commands:
+  install-dependencies:
+    steps:
+      - npm install
+  cache-dependencies:
+    steps:
+      - save_cache:
+          keys:
+            - dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+
 jobs:
   build:
     executor: default
     steps:
       - checkout
+      - install-dependencies
+      - cache-dependencies
 
 workflows:
   version: 2
