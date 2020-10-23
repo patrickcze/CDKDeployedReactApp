@@ -22,6 +22,9 @@ commands:
     steps:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
+  build-app:
+    steps:
+      - run: npm run build
 
 jobs:
   build:
@@ -31,6 +34,7 @@ jobs:
       - restore-dependencies
       - install-dependencies
       - cache-dependencies
+      - build-app
 
 workflows:
   version: 2
