@@ -12,6 +12,7 @@ commands:
   install-dependencies:
     steps:
       - run: npm install .
+      - run: cd infrastructure && npm install .
   cache-dependencies:
     steps:
       - save_cache:
@@ -25,6 +26,9 @@ commands:
   build-app:
     steps:
       - run: npm run build
+  deploy-app:
+    steps:
+      - run: cd infrastructure && npm run deploy
 
 jobs:
   build:
@@ -35,10 +39,20 @@ jobs:
       - install-dependencies
       - cache-dependencies
       - build-app
+  deploy:
+    executor: default
+    steps:
+      - checkout
+      - restore-dependencies
+      - install-dependencies
+      - cache-dependencies
 
 workflows:
   version: 2
   ci-master:
     jobs:
-      - build:
+      - build
+      - deploy:
           context: aws-account
+          requires:
+            - build
