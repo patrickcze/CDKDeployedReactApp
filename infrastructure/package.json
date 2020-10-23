@@ -9,7 +9,7 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "deploy": "npm run build && cdk bootstrap && cdk deploy -v --execute"
+    "deploy": "npm run build && cdk bootstrap && cdk deploy -v --require-approval never"
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.69.0",
