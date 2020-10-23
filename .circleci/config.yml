@@ -43,9 +43,9 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - project/build
+            - build
       - store_artifacts:
-          path: project/build
+          path: build
   deploy:
     executor: default
     steps:
