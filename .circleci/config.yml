@@ -11,19 +11,24 @@ executors:
 commands:
   install-dependencies:
     steps:
-      - run: npm install
+      - run: npm install .
   cache-dependencies:
     steps:
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+  restore-dependencies:
+    steps:
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
 
 jobs:
   build:
     executor: default
     steps:
       - checkout
+      - restore-dependencies
       - install-dependencies
       - cache-dependencies
 
