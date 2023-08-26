@@ -1,18 +1,23 @@
-import * as cdk from "@aws-cdk/core";
-import * as s3 from "@aws-cdk/aws-s3";
-import * as s3deploy from "@aws-cdk/aws-s3-deployment";
-import * as cloudFront from "@aws-cdk/aws-cloudfront";
+import * as cdk from "aws-cdk-lib";
+import { Construct } from 'constructs';
+import * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
+import * as cloudFront from "aws-cdk-lib/aws-cloudfront";
+
 
 export class InfrastructureStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // Add S3 Bucket
     const s3Site = new s3.Bucket(this, `myreactapp`, {
-      bucketName: `myreactapp-s3bucket`,
+      bucketName: `myreactapp-s3bucket-shaurya-4`,
       publicReadAccess: true,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ACLS,
+      accessControl: s3.BucketAccessControl.BUCKET_OWNER_FULL_CONTROL,
       websiteIndexDocument: "index.html",
-      websiteErrorDocument: "index.html"
+      websiteErrorDocument: "index.html",
+      removalPolicy: cdk.RemovalPolicy.DESTROY
     });
     this.enableCorsOnBucket(s3Site);
 
